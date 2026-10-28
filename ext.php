@@ -44,7 +44,7 @@ class ext extends \phpbb\extension\base
 		$enableable = $this->check_phpbb_version() && $this->check_php_version();
 
 		$language = $this->container->get('language');
-		$language->add_lang('posteripinviewtopic_install', 'phpbbmodders/posteripinviewtopic');
+		$language->add_lang('install_posteripinviewtopic', 'phpbbmodders/posteripinviewtopic');
 
 		if (!$enableable)
 		{

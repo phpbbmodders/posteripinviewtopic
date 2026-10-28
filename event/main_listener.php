@@ -83,7 +83,7 @@ class main_listener implements EventSubscriberInterface
 
 		if (($this->auth->acl_gets('a_', 'm_') || $this->auth->acl_get('m_', (int) $forum_id)) && (!empty($poster_ip) && $poster_ip != '127.0.0.1'))
 		{
-			$query_url = $this->helper->route('phpbbmodders_posteripinviewtopic_core_freegeoip', ['post_id' => (int) $post_id]);
+			$query_url = $this->helper->route('phpbbmodders_posteripinviewtopic_controller_freegeoip', ['post_id' => (int) $post_id]);
 
 			$event['post_row'] = array_merge($event['post_row'], [
 				'POSTER_IP_VISIBLE'	=> true,

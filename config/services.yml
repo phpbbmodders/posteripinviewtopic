@@ -9,8 +9,8 @@ services:
         tags:
             - { name: event.listener }
 
-    phpbbmodders.posteripinviewtopic.core.freegeoip:
-        class: phpbbmodders\posteripinviewtopic\core\freegeoip
+    phpbbmodders.posteripinviewtopic.controller.freegeoip:
+        class: phpbbmodders\posteripinviewtopic\controller\freegeoip
         arguments:
             - '@auth'
             - '@dbal.conn'

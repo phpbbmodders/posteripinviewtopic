@@ -9,7 +9,7 @@
  *
  */
 
-namespace phpbbmodders\posteripinviewtopic\core;
+namespace phpbbmodders\posteripinviewtopic\controller;
 
 /**
  * @ignore
@@ -18,7 +18,7 @@ use phpbb\exception\http_exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
- * Poster IP in Viewtopic freegeoip api
+ * Poster IP in Viewtopic IP lookup controller
  */
 class freegeoip
 {
