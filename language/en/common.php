@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * PPoster IP in Viewtopic extension for the phpBB Forum Software package
+ * Poster IP in Viewtopic extension for the phpBB Forum Software package
  *
  * @copyright (c) 2026, phpBB Modders, https://www.phpbbmodders.com/
  * @copyright (c) 2016, Rich McGirr (RMcGirr83)
