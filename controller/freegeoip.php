@@ -87,8 +87,8 @@ class freegeoip
 				throw new http_exception(404, $this->language->lang('POST_NOT_EXIST'));
 			}
 
-			// Auth check
-			if (!$this->auth->acl_gets('a_', 'm_') || !$this->auth->acl_get('m_', (int) $row['forum_id']))
+			// Same check as the listener: admins, global moderators, or moderators of the post's forum
+			if (!$this->auth->acl_gets('a_', 'm_') && !$this->auth->acl_get('m_', (int) $row['forum_id']))
 			{
 				throw new http_exception(403, $this->language->lang('NOT_AUTHORISED'));
 			}
