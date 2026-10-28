@@ -10,6 +10,17 @@ Allows moderators and administrators to view the IP of the poster when viewing a
 - Click the IP address to look it up. A popup shows the country, region, city, postal code, time zone, location and provider.
 - The lookup is done by [ip-api.com](https://ip-api.com/). The board sends the poster's IP address to that service over plain HTTP. The lookup needs JavaScript.
 
+## Screenshots
+
+<table>
+  <tr>
+    <td align="center"><a href="docs/images/screenshots/posteripinviewtopic-viewtopic.png"><img src="docs/images/screenshots/posteripinviewtopic-viewtopic.png" width="440" height="46" alt="A post's profile column showing the poster's IP address"></a><br>The IP address in the post's profile column</td>
+    <td align="center"><a href="docs/images/screenshots/posteripinviewtopic-lookup.png"><img src="docs/images/screenshots/posteripinviewtopic-lookup.png" width="440" height="309" alt="The IP lookup popup over a topic, listing country, region, city and provider"></a><br>The lookup popup</td>
+  </tr>
+</table>
+
+Click a screenshot for the full size.
+
 ## Requirements
 
 - phpBB 3.3.19 or later
