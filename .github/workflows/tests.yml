@@ -57,7 +57,7 @@ jobs:
       PRIMARY_PHP_VERSION: '8.3'
 
       # The MySQL and PostgreSQL jobs run tests across multiple PHP versions
-      PHP_VERSION_MATRIX: '["8.3", "8.4", "8.5"]'
+      PHP_VERSION_MATRIX: '["8.1", "8.3", "8.4", "8.5"]'
 
       # Generate a code coverage report?
       CODECOV: 0
