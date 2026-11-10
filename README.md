@@ -24,7 +24,7 @@ Click a screenshot for the full size.
 ## Requirements
 
 - phpBB 3.3.19 or later
-- PHP 8.3.36 or later
+- PHP 8.1 or later
 - The PHP cURL extension, for the IP lookup
 
 ## Installation
