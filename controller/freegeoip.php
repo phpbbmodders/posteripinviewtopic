@@ -69,9 +69,10 @@ class freegeoip
 	 */
 	public function freegeoip($post_id = 0)
 	{
+		$this->language->add_lang('common', 'phpbbmodders/posteripinviewtopic');
+
 		if ($this->request->is_ajax())
 		{
-			$this->language->add_lang('common', 'phpbbmodders/posteripinviewtopic');
 			$this->language->add_lang('mcp');
 
 			$sql= 'SELECT poster_ip, forum_id
@@ -87,10 +88,19 @@ class freegeoip
 				throw new http_exception(404, $this->language->lang('POST_NOT_EXIST'));
 			}
 
-			// Same check as the listener: admins, global moderators, or moderators of the post's forum
-			if (!$this->auth->acl_gets('a_', 'm_') && !$this->auth->acl_get('m_', (int) $row['forum_id']))
+			// Same rule as core for a post's IP: "Can view post details" in a forum the user can read
+			if (!$this->auth->acl_get('m_info', (int) $row['forum_id']) || !$this->auth->acl_get('f_read', (int) $row['forum_id']))
 			{
 				throw new http_exception(403, $this->language->lang('NOT_AUTHORISED'));
+			}
+
+			// Nothing to look up for an empty, local or malformed address
+			if ($row['poster_ip'] === '127.0.0.1' || filter_var($row['poster_ip'], FILTER_VALIDATE_IP) === false)
+			{
+				return new JsonResponse([
+					'MESSAGE_TITLE'	=> $this->language->lang('ERROR'),
+					'MESSAGE_TEXT'	=> $this->language->lang('IP_ADDRESS_INVALID'),
+				]);
 			}
 
 			$response = $this->freegeoip_api($row['poster_ip']);
@@ -107,15 +117,30 @@ class freegeoip
 				return $json_response;
 			}
 
-			$json_decode = json_decode($response, true);
+			$json_decode = json_decode((string)$response, true);
+
+			if (!is_array($json_decode))
+			{
+				return new JsonResponse([
+					'MESSAGE_TITLE'	=> $this->language->lang('ERROR'),
+					'MESSAGE_TEXT'	=> $this->language->lang('NO_RESPONSE_FROM_SERVER'),
+				]);
+			}
+
 			$message = '';
 
 			foreach ($json_decode as $key => $value)
 			{
-				if (!in_array($key, ['as', 'org', 'status']) && !empty($value))
+				$lang_key = 'PIPIV_' . strtoupper((string) $key);
+
+				// Only the fields this extension has a label for, and only plain values
+				if (in_array($key, ['as', 'org', 'status']) || !is_scalar($value) || is_bool($value) || (string) $value === '' || !$this->language->is_set($lang_key))
 				{
-					$message .= '<pre>' . $this->language->lang('PIPIV_' . strtoupper($key), ucfirst($value)) . '</pre>';
+					continue;
 				}
+
+				// The answer comes from a remote server, never print it as HTML
+				$message .= '<pre>' . $this->language->lang($lang_key, htmlspecialchars(ucfirst((string) $value), ENT_COMPAT)) . '</pre>';
 			}
 
 			$data = [

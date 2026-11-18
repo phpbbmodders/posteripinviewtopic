@@ -3,8 +3,6 @@ services:
         class: phpbbmodders\posteripinviewtopic\event\main_listener
         arguments:
             - '@auth'
-            - '@language'
-            - '@template'
             - '@controller.helper'
         tags:
             - { name: event.listener }

@@ -22,19 +22,10 @@ class ext extends \phpbb\extension\base
 	/** Package name this extension used before the rename */
 	const OLD_EXT_NAME = 'rmcgirr83/posteripinviewtopic';
 
-	/** Package name this extension uses now */
-	const NEW_EXT_NAME = 'phpbbmodders/posteripinviewtopic';
-
-	/** PHP namespace prefix used before the rename */
-	const OLD_NAMESPACE = '\\rmcgirr83\\posteripinviewtopic\\';
-
-	/** PHP namespace prefix used now */
-	const NEW_NAMESPACE = '\\phpbbmodders\\posteripinviewtopic\\';
-
 	/**
 	 * Check whether the extension can be enabled.
 	 * The current phpBB and PHP version should meet or
-	 * exceed the minimum version required by this extension:
+	 * exceed the minimum version required by this extension.
 	 *
 	 * @return bool|array
 	 * @access public
@@ -51,7 +42,10 @@ class ext extends \phpbb\extension\base
 			return $language->lang('POSTERIPINVIEWTOPIC_NOT_ENABLEABLE');
 		}
 
-		if ($this->container->get('ext.manager')->is_enabled(self::OLD_EXT_NAME))
+		$manager = $this->container->get('ext.manager');
+
+		// Only when its files are still there, a folder deleted without disabling cannot be disabled any more
+		if ($manager->is_enabled(self::OLD_EXT_NAME) && $manager->is_available(self::OLD_EXT_NAME))
 		{
 			return $language->lang('POSTERIPINVIEWTOPIC_DISABLE_OLD', self::OLD_EXT_NAME);
 		}
@@ -60,7 +54,7 @@ class ext extends \phpbb\extension\base
 	}
 
 	/**
-	 * Require phpBB 3.3.19 due to several security fixes in the phpBB software.
+	 * Require phpBB 3.3.19 due to several security fixes in the phpBB software
 	 *
 	 * @return bool
 	 */
@@ -80,7 +74,7 @@ class ext extends \phpbb\extension\base
 	}
 
 	/**
-	 * Move an old install's data to the new name, then enable as usual.
+	 * Move an old install's data to the new name, then enable as usual
 	 *
 	 * @param mixed $old_state
 	 * @return bool|string
@@ -100,7 +94,7 @@ class ext extends \phpbb\extension\base
 	}
 
 	/**
-	 * Rewrite everything the database stores under the old name.
+	 * Rewrite everything the database stores under the old name
 	 */
 	protected function move_old_install()
 	{
@@ -110,8 +104,13 @@ class ext extends \phpbb\extension\base
 
 		// The old extension's own record (only once it's disabled)
 		$sql = 'DELETE FROM ' . EXT_TABLE . "
-			WHERE ext_name = '" . $db->sql_escape(self::OLD_EXT_NAME) . "'
-				AND ext_active = 0";
+			WHERE ext_name = '" . $db->sql_escape(self::OLD_EXT_NAME) . "'";
+
+		if ($this->container->get('ext.manager')->is_available(self::OLD_EXT_NAME))
+		{
+			$sql.= ' AND ext_active = 0';
+		}
+
 		$db->sql_query($sql);
 
 		$db->sql_transaction('commit');

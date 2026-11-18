@@ -1,7 +1,7 @@
 {
     "name": "phpbbmodders/posteripinviewtopic",
     "type": "phpbb-extension",
-    "description": "Allows moderators and administrators to view the IP of the poster when viewing a topic.",
+    "description": "Allows moderators and administrators to view the IP of the poster when viewing a topic. Note: this extension requires PHP 8.1 or greater.",
     "homepage": "https://www.phpbbmodders.com/",
     "version": "1.2.3",
     "time": "2026-10-22",
