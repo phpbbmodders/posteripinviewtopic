@@ -117,7 +117,7 @@ class freegeoip
 				return $json_response;
 			}
 
-			$json_decode = json_decode((string)$response, true);
+			$json_decode = json_decode((string) $response, true);
 
 			if (!is_array($json_decode))
 			{
