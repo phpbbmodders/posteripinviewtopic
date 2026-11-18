@@ -167,7 +167,7 @@ class freegeoip
 	 */
 	private function freegeoip_api($poster_ip)
 	{
-		$url = 'http://ip-api.com/json/' . $poster_ip;
+		$url = 'https://ipwho.is/' . $poster_ip;
 
 		$curl = curl_init();
 
