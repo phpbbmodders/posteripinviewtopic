@@ -1,0 +1,6 @@
+# EPV findings this extension keeps on purpose, checked by the epv job in
+# .github/workflows/tests.yml. One finding per line as EPV prints it, without
+# "on line N", with paths relative to the extension; give the reason above it.
+
+# Validation notes suggested using htmlspecialchars() due to remote server calls
+Error: Using htmlspecialchars in /controller/freegeoip.php

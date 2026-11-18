@@ -36,6 +36,6 @@ if (empty($lang) || !is_array($lang))
 //
 
 $lang = array_merge($lang, [
-	'POSTERIPINVIEWTOPIC_DISABLE_OLD'		=> 'Disable the old “%s” extension first. Keep its data; do not delete it.',
+	'POSTERIPINVIEWTOPIC_DISABLE_OLD'		=> 'Disable the old “%s” extension first. Keep its data; do not delete it. Once this extension is installed, you can delete the old extension folder.',
 	'POSTERIPINVIEWTOPIC_NOT_ENABLEABLE'	=> 'Poster IP in Viewtopic could not be enabled. The minimum requirements of phpBB 3.3.19 and/or PHP 8.1 were not satisfied.',
 ]);

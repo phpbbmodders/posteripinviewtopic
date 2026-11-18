@@ -24,12 +24,6 @@ class main_listener implements EventSubscriberInterface
 	/** @var \phpbb\auth\auth */
 	protected $auth;
 
-	/** @var \phpbb\language\language */
-	protected $language;
-
-	/** @var \phpbb\template\template */
-	protected $template;
-
 	/** @var \phpbb\controller\helper */
 	protected $helper;
 
@@ -37,17 +31,13 @@ class main_listener implements EventSubscriberInterface
 	 * Constructor
 	 *
 	 * @param \phpbb\auth\auth          $auth
-	 * @param \phpbb\language\language  $language
-	 * @param \phpbb\template\template  $template
 	 * @param \phpbb\controller\helper  $helper
 	 *
 	 * @access public
 	 */
-	public function __construct(\phpbb\auth\auth $auth, \phpbb\language\language $language, \phpbb\template\template $template, \phpbb\controller\helper $helper)
+	public function __construct(\phpbb\auth\auth $auth, \phpbb\controller\helper $helper)
 	{
 		$this->auth = $auth;
-		$this->language = $language;
-		$this->template = $template;
 		$this->helper = $helper;
 	}
 
@@ -81,7 +71,7 @@ class main_listener implements EventSubscriberInterface
 		// Pass the post_id to the controller
 		$post_id = $event['row']['post_id'];
 
-		if (($this->auth->acl_gets('a_', 'm_') || $this->auth->acl_get('m_', (int) $forum_id)) && (!empty($poster_ip) && $poster_ip != '127.0.0.1'))
+		if ($this->auth->acl_get('m_info', (int) $forum_id) && (!empty($poster_ip) && $poster_ip != '127.0.0.1'))
 		{
 			$query_url = $this->helper->route('phpbbmodders_posteripinviewtopic_controller_freegeoip', ['post_id' => (int) $post_id]);
 
