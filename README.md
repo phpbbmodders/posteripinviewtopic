@@ -6,9 +6,9 @@ Allows moderators and administrators to view the IP of the poster when viewing a
 
 ## Features
 
-- Shows each post's IP address in the post's profile column, visible only to administrators, global moderators and moderators of that forum.
-- Click the IP address to look it up. A popup shows the country, region, city, postal code, time zone, location and provider.
-- The lookup is done by [ip-api.com](https://ip-api.com/). The board sends the poster's IP address to that service over plain HTTP. The lookup needs JavaScript.
+- Shows each post's IP address in the post's profile column, visible only moderators with the `m_info` permission of that forum.
+- Click the IP address to look it up. A popup shows the country, region and city. This limitation is due to the API provider used.
+- The lookup is done by [ipwhois.io](https://ipwhois.io/). The board sends the poster's IP address to that service over HTTPS. The lookup needs JavaScript.
 
 ## Screenshots
 
